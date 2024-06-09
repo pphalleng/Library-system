@@ -11,9 +11,11 @@ const port = process.env.PORT || 80;
 
 // Import the customer routes
 const customerRoute = require("./route/customers");
+const lirarainRoute = require("./route/librarain");
 
 // Use the customers routes
 app.use('/api', customerRoute);
+app.use('/api', lirarainRoute);
 
 app.get("/test",function(request,response){
     response.send("Hello everyone, Here is NodeJS project.")
