@@ -16,7 +16,7 @@ const customerRoute = require("./route/customers");
 app.use('/api', customerRoute);
 
 app.get("/test",function(request,response){
-    response.send("Hello World!")
+    response.send("Hello everyone, I'm NodeJS.")
 })
 
 
