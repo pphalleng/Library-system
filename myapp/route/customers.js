@@ -10,7 +10,6 @@ router.get('/customers', paginatedResults(customers), (req, res) => {
     res.json(res.paginatedResults);
 });
 
-<<<<<<< Updated upstream
 //Get customer by id
 router.get('/customers/:id', (req, res) => {
     const { id } = req.params;
@@ -19,12 +18,11 @@ router.get('/customers/:id', (req, res) => {
     if (!customer) {
         return res.status(404).json({ message: 'User not found' });
     }
-=======
+});
 function paginatedResults(model) {
     return (req, res, next) => {
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
->>>>>>> Stashed changes
     
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
