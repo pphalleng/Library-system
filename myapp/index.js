@@ -24,5 +24,5 @@ app.get("/test",function(request,response){
 
 app.listen(port, () => {
     // console.log("Started application on port http://localhost ");
-    console.log("Started application on port http://localhost ");
+    console.log("Started application on port http://localhost/ ");
 })
