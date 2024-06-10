@@ -47,7 +47,7 @@ router.post('/transaction_lines', (req, res) => {
       return res.status(400).json({ message: 'Transaction ID is required' });
     }
   
-    const newtransaction_line = { id: transaction_lines.length + 1, first_name, last_name, age, date_of_birth, id_card_number, current_address};
+    const newtransaction_line = { id: transaction_lines.length + 1, transaction_id, book_id, unit_price, qty_unit, total_price};
     transaction_lines.push(newtransaction_line);
   
     res.status(201).json(newtransaction_line);

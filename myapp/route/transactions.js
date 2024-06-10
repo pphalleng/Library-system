@@ -53,7 +53,7 @@ router.post('/transactions', (req, res) => {
       return res.status(400).json({ message: 'User ID is required' });
     }
   
-    const newTransaction = { id: transactions.length + 1, first_name, last_name, age, date_of_birth, id_card_number, current_address};
+    const newTransaction = { id: transactions.length + 1, customer_id, librarian_id, total_amount, status, created_on, created_by, last_updated_on, last_updated_by};
     transactions.push(newTransaction);
   
     res.status(201).json(newTransaction);
