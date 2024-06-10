@@ -1,30 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-let transactions = [
-    {
-        id: 1, 
-        customer_id: '1',
-        librarian_id: '1',
-        total_amount: '100$',
-        status:'completed',
-        created_on: '2024-06-09', 
-        created_by: '1',
-        last_updated_on: '2024-06-09',
-        last_updated_by: '1',
-    },
-    { 
-        id: 2, 
-        customer_id: '2',
-        librarian_id: '1',
-        total_amount: '150$',
-        status:'completed',
-        created_on: '2024-06-10', 
-        created_by: '1',
-        last_updated_on: '2024-06-10',
-        last_updated_by: '1',
-    },
-];
+const transactions = require("../dummyData/DataTransaction.json");
 
 // Get all Transaction
 router.get('/transactions', (req, res) => {
@@ -34,7 +11,7 @@ router.get('/transactions', (req, res) => {
 //Get transaction by id
 router.get('/transactions/:id', (req, res) => {
     const { id } = req.params;
-    const transaction = transactions.find((transaction) => transaction.id === parseInt(id));
+    const transaction = transactions.find((transaction) => transaction.id === id);
 
     if (!transaction) {
         return res.status(404).json({ message: 'The transaction NO not found' });
