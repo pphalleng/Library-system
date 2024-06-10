@@ -2,26 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const {check, validationResult} = require('express-validator');
 
-let customers = [
-    { 
-        id: 1, 
-        first_name: 'John',
-        last_name: 'Doe',
-        age: 30,
-        date_of_birth: '2002-01-01',
-        nid_passport_number: '123456789',
-        current_address: 'kompongcham',
-    },
-    { 
-        id: 2, 
-        first_name: 'Jane', 
-        last_name: 'Smith',
-        age: 25,
-        date_of_birth: '2005-06-01',
-        nid_passport_number: '987654321',
-        current_address: 'kampot',
-    },
-];
+const customers = require("../dummyData/DataCustomer.json")
 
 // Get all Customer
 router.get('/customers', (req, res) => {
@@ -31,7 +12,7 @@ router.get('/customers', (req, res) => {
 //Get customer by id
 router.get('/customers/:id', (req, res) => {
     const { id } = req.params;
-    const customer = customers.find((customer) => customer.id === parseInt(id));
+    const customer = customers.filter((customer) => customer.id === id);
 
     if (!customer) {
         return res.status(404).json({ message: 'User not found' });
@@ -70,12 +51,12 @@ router.put('/update-customers/:id', [check('date_of_birth').isDate()], (req, res
       return res.status(400).json({ message: 'All fields are required, please check again to input them.' });
     }
     if(!errors.isEmpty()){
-        console.log(errors)
         return res.status(422).json({errors: errors.array()})
     }
-  
-    const customer = customers.find((customer) => customer.id === parseInt(id));
-  
+    
+    const customer = customers.find((customer) => customer.id === id);
+    
+    console.log(customer);
     if (!customer) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -92,8 +73,9 @@ router.put('/update-customers/:id', [check('date_of_birth').isDate()], (req, res
 
 // Delete a user by ID
 router.delete('/delete-customers/:id', (req, res) => {
-    const { id } = req.params;
-    customers = customers.filter((customer) => customer.id !== parseInt(id));
+    const {id} = req.params;
+    console.log(id);
+    // customers = customers.find((customer) => customer.id !== id);
     res.sendStatus(204);
   });
   
