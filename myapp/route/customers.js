@@ -1,24 +1,22 @@
 const express = require('express');
 const router  = express.Router();
 const {check, validationResult} = require('express-validator');
-const { message } = require('statuses');
 
 const customers = require("../dummyData/DataCustomer.json")
 
-// Get all Customer
+// // Get all Customer
+// router.get('/all/customers', (req, res) => {
+//     res.json(customers);
+// });
+
+// Get all Customer with pagination
 router.get('/customers', paginatedResults(customers), (req, res) => {
-    res.json(res.paginatedResults);
-});
-
-//Get customer by id
-router.get('/customers/:id', (req, res) => {
-    const { id } = req.params;
-    const customer = customers.filter((customer) => customer.id === id);
-
-    if (!customer) {
-        return res.status(404).json({ message: 'User not found' });
+    if(req.query.page || req.query.limit){
+        res.json(res.paginatedResults);
+    }else{
+        res.json(customers);
     }
-});
+})
 function paginatedResults(model) {
     return (req, res, next) => {
         const page = parseInt(req.query.page);
@@ -46,6 +44,15 @@ function paginatedResults(model) {
         next();
     }
 }
+//Get customer by id
+router.get('/customers/:id', (req, res) => {
+    const { id } = req.params;
+    const customer = customers.filter((customer) => customer.id === id);
+
+    if (!customer) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+});
 
 // Create a new Customer
 router.post('/create-customers', [check('date_of_birth').isDate()], (req, res) => {
