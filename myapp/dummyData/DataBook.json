@@ -1,0 +1,394 @@
+[
+    {
+     "id": "1",
+     "cover_name": "The Shadow of the Wind",
+     "published_year": "2001",
+     "category_type": "Mystery",
+     "barcode": "012345678901",
+     "status": "Active"
+    },
+    {
+     "id": "2",
+     "cover_name": "1984",
+     "published_year": "1949",
+     "category_type": "Dystopian",
+     "barcode": "123456789012",
+     "status": "Active"
+    },
+    {
+     "id": "3",
+     "cover_name": "To Kill a Mockingbird",
+     "published_year": "1960",
+     "category_type": "Bildungsroman",
+     "barcode": "234567890123",
+     "status": "Active"
+    },
+    {
+     "id": "4",
+     "cover_name": "The Great Gatsby",
+     "published_year": "1925",
+     "category_type": "Modernist",
+     "barcode": "345678901234",
+     "status": "Active"
+    },
+    {
+     "id": "5",
+     "cover_name": "Pride and Prejudice",
+     "published_year": "1813",
+     "category_type": "Romance",
+     "barcode": "456789012345",
+     "status": "Active"
+    },
+    {
+     "id": "6",
+     "cover_name": "Harry Potter and the Sorcerer's Stone",
+     "published_year": "1997",
+     "category_type": "Fantasy",
+     "barcode": "567890123456",
+     "status": "Active"
+    },
+    {
+     "id": "7",
+     "cover_name": "The Catcher in the Rye",
+     "published_year": "1951",
+     "category_type": "Coming-of-age",
+     "barcode": "678901234567",
+     "status": "Active"
+    },
+    {
+     "id": "8",
+     "cover_name": "The Lord of the Rings",
+     "published_year": "1954",
+     "category_type": "Fantasy",
+     "barcode": "789012345678",
+     "status": "Active"
+    },
+    {
+     "id": "9",
+     "cover_name": "The Hitchhiker's Guide to the Galaxy",
+     "published_year": "1847",
+     "category_type": "Gothic",
+     "barcode": "890123456789",
+     "status": "Active"
+    },
+    {
+     "id": "10",
+     "cover_name": "Jane Eyre",
+     "published_year": "1932",
+     "category_type": "Dystopian",
+     "barcode": "901234567890",
+     "status": "Active"
+    },
+    {
+     "id": "11",
+     "cover_name": "Brave New World",
+     "published_year": "2008",
+     "category_type": "Young Adult",
+     "barcode": "987654321098",
+     "status": "Active"
+    },
+    {
+     "id": "12",
+     "cover_name": "The Hunger Games",
+     "published_year": "1945",
+     "category_type": "Satire",
+     "barcode": "876543210987",
+     "status": "Active"
+    },
+    {
+     "id": "13",
+     "cover_name": "Animal Farm",
+     "published_year": "1866",
+     "category_type": "Psychological",
+     "barcode": "765432109876",
+     "status": "Active"
+    },
+    {
+     "id": "14",
+     "cover_name": "Crime and Punishment",
+     "published_year": "1947",
+     "category_type": "Autobiography",
+     "barcode": "654321098765",
+     "status": "Active"
+    },
+    {
+     "id": "15",
+     "cover_name": "The Diary of a Young Girl",
+     "published_year": "1950",
+     "category_type": "Fantasy",
+     "barcode": "543210987654",
+     "status": "Active"
+    },
+    {
+     "id": "16",
+     "cover_name": "The Chronicles of Narnia",
+     "published_year": "1953",
+     "category_type": "Fantasy",
+     "barcode": "432109876543",
+     "status": "Active"
+    },
+    {
+     "id": "17",
+     "cover_name": "Fahrenheit 451",
+     "published_year": "1851",
+     "category_type": "Dystopian",
+     "barcode": "321098765432",
+     "status": "Active"
+    },
+    {
+     "id": "18",
+     "cover_name": "Moby-Dick",
+     "published_year": "1847",
+     "category_type": "Adventure",
+     "barcode": "210987654321",
+     "status": "Active"
+    },
+    {
+     "id": "19",
+     "cover_name": "Wuthering Heights",
+     "published_year": "1967",
+     "category_type": "Gothic",
+     "barcode": "109876543210",
+     "status": "Active"
+    },
+    {
+     "id": "20",
+     "cover_name": "One Hundred Years of Solitude",
+     "published_year": "1961",
+     "category_type": "Magical Realism",
+     "barcode": "098765432109",
+     "status": "Active"
+    },
+    {
+     "id": "21",
+     "cover_name": "Catch-22",
+     "published_year": "1890",
+     "category_type": "Satire",
+     "barcode": "987654321098",
+     "status": "Active"
+    },
+    {
+     "id": "22",
+     "cover_name": "The Picture of Dorian Gray",
+     "published_year": "2003",
+     "category_type": "Historical Fiction",
+     "barcode": "876543210987",
+     "status": "Active"
+    },
+    {
+     "id": "23",
+     "cover_name": "The Kite Runner",
+     "published_year": "1954",
+     "category_type": "Contemporary Fiction",
+     "barcode": "765432109876",
+     "status": "Active"
+    },
+    {
+     "id": "24",
+     "cover_name": "Lord of the Flies",
+     "published_year": "1818",
+     "category_type": "Allegorical",
+     "barcode": "654321098765",
+     "status": "Active"
+    },
+    {
+     "id": "26",
+     "cover_name": "Frankenstein",
+     "published_year": "1988",
+     "category_type": "Allegorical",
+     "barcode": "543210987654",
+     "status": "Active"
+    },
+    {
+     "id": "27",
+     "cover_name": "The Alchemist",
+     "published_year": "1936",
+     "category_type": "Quest",
+     "barcode": "432109876543",
+     "status": "Active"
+    },
+    {
+     "id": "28",
+     "cover_name": "Gone with the Wind",
+     "published_year": "1969",
+     "category_type": "Historical Romance",
+     "barcode": "321098765432",
+     "status": "Active"
+    },
+    {
+     "id": "29",
+     "cover_name": "Slaughterhouse-Five",
+     "published_year": "2006",
+     "category_type": "Satire",
+     "barcode": "210987654321",
+     "status": "Active"
+    },
+    {
+     "id": "30",
+     "cover_name": "Little Women",
+     "published_year": "1963",
+     "category_type": "Postmodern",
+     "barcode": "109876543210",
+     "status": "Active"
+    },
+    {
+     "id": "31",
+     "cover_name": "The Road",
+     "published_year": "1939",
+     "category_type": "Dystopian",
+     "barcode": "098765432109",
+     "status": "Active"
+    },
+    {
+     "id": "32",
+     "cover_name": "The Bell Jar",
+     "published_year": "1869",
+     "category_type": "Semi-Autobiographical",
+     "barcode": "987654321098",
+     "status": "Active"
+    },
+    {
+     "id": "33",
+     "cover_name": "The Grapes of Wrath",
+     "published_year": "1877",
+     "category_type": "Historical Fiction",
+     "barcode": "876543210987",
+     "status": "Active"
+    },
+    {
+     "id": "34",
+     "cover_name": "War and Peace",
+     "published_year": "1955",
+     "category_type": "Historical Fiction",
+     "barcode": "765432109876",
+     "status": "Active"
+    },
+    {
+     "id": "35",
+     "cover_name": "Anna Karenina",
+     "published_year": "1954",
+     "category_type": "Literary Fiction",
+     "barcode": "654321098765",
+     "status": "Active"
+    },
+    {
+     "id": "36",
+     "cover_name": "Lolita",
+     "published_year": "1962",
+     "category_type": "Classic Literature",
+     "barcode": "543210987654",
+     "status": "Active"
+    },
+    {
+     "id": "37",
+     "cover_name": "The Odyssey",
+     "published_year": "1844",
+     "category_type": "Dystopian",
+     "barcode": "432109876543",
+     "status": "Active"
+    },
+    {
+     "id": "38",
+     "cover_name": "A Clockwork Orange",
+     "published_year": "1862",
+     "category_type": "Adventure",
+     "barcode": "321098765432",
+     "status": "Active"
+    },
+    {
+     "id": "39",
+     "cover_name": "The Count of Monte Cristo",
+     "published_year": "1850",
+     "category_type": "Historical Adventure",
+     "barcode": "210987654321",
+     "status": "Active"
+    },
+    {
+     "id": "40",
+     "cover_name": "Les Misérables",
+     "published_year": "1605",
+     "category_type": "Historical Fiction",
+     "barcode": "109876543210",
+     "status": "Active"
+    },
+    {
+     "id": "41",
+     "cover_name": "The Scarlet Letter",
+     "published_year": "1880",
+     "category_type": "Allegorical",
+     "barcode": "098765432109",
+     "status": "Active"
+    },
+    {
+     "id": "42",
+     "cover_name": "Don Quixote",
+     "published_year": "1957",
+     "category_type": "Satirical",
+     "barcode": "987654321098",
+     "status": "Active"
+    },
+    {
+     "id": "43",
+     "cover_name": "The Brothers Karamazov",
+     "published_year": "1922",
+     "category_type": "Philosophical",
+     "barcode": "876543210987",
+     "status": "Active"
+    },
+    {
+     "id": "44",
+     "cover_name": "Atlas Shrugged",
+     "published_year": "1942",
+     "category_type": "Dystopian",
+     "barcode": "765432109876",
+     "status": "Active"
+    },
+    {
+     "id": "45",
+     "cover_name": "Ulysses",
+     "published_year": "1899",
+     "category_type": "Psychological",
+     "barcode": "654321098765",
+     "status": "Active"
+    },
+    {
+     "id": "46",
+     "cover_name": "The Stranger",
+     "published_year": "1911",
+     "category_type": "Children's Literature",
+     "barcode": "543210987654",
+     "status": "Active"
+    },
+    {
+     "id": "47",
+     "cover_name": "Heart of Darkness",
+     "published_year": "1897",
+     "category_type": "Gothic",
+     "barcode": "432109876543",
+     "status": "Active"
+    },
+    {
+     "id": "48",
+     "cover_name": "The Secret Garden",
+     "published_year": "1854",
+     "category_type": "Children's Literature",
+     "barcode": "321098765432",
+     "status": "Active"
+    },
+    {
+     "id": "49",
+     "cover_name": "Dracula",
+     "published_year": "1952",
+     "category_type": "Gothic",
+     "barcode": "210987654321",
+     "status": "Active"
+    },
+    {
+     "id": "50",
+     "cover_name": "Walden",
+     "published_year": "1884",
+     "category_type": "Adventure",
+     "barcode": "109876543210",
+     "status": "Active"
+    }
+]

@@ -2,32 +2,7 @@ const express = require('express');
 const status = require('statuses');
 const router  = express.Router();
 
-let books = [
-    { 
-        id: 1, 
-        cover_name: 'To Kill a Mockingbird',
-        published_year: '1960',
-        category_type: 'Education',
-        barcode: '9780099549482',
-        status: 'Education Book',
-    },
-    { 
-        id: 2, 
-        cover_name: 'Jane Eyre', 
-        published_year: '1847',
-        category_type: 'Novel',
-        barcode: '9781853260209',
-        status: 'Novel Book',
-    },
-    { 
-        id: 3, 
-        cover_name: 'War and Peace', 
-        published_year: '1865',
-        category_type: 'History',
-        barcode: '9781853260629',
-        status: 'History Book',
-    },
-];
+const books = require("../dummyData/DataBook.json");
 
 // Get all Books
 router.get('/books', (req, res) => {
@@ -37,7 +12,7 @@ router.get('/books', (req, res) => {
 //Get Books by id
 router.get('/books/:id', (req, res) => {
     const { id } = req.params;
-    const book = books.find((book) => book.id === parseInt(id));
+    const book = books.find((book) => book.id === id);
 
     if (!book) {
         return res.status(404).json({ message: 'Item not found' });
@@ -69,16 +44,16 @@ router.put('/books/:id', (req, res) => {
   
     // Simple validation
     if (!cover_name || !published_year || !category_type || !barcode || !status) {
-      return res.status(400).json({ message: 'Book title are required' });
-    }
-  
-    const book = books.find((book) => book.id === parseInt(id));
+        return res.status(400).json({ message: 'Book title are required' });
+        }
+        
+        const book = books.find((book) => book.id === id);
   
     if (!book) {
       return res.status(404).json({ message: 'Item not found' });
     }
   
-    book.name = cover_name;
+    book.cover_name = cover_name;
     book.published_year = published_year;
     book.category_type = category_type;
     book.barcode = barcode;
@@ -90,7 +65,7 @@ router.put('/books/:id', (req, res) => {
 // Delete a user by ID
 router.delete('/books/:id', (req, res) => {
     const { id } = req.params;
-    books = books.filter((book) => book.id !== parseInt(id));
+    // books = books.filter((book) => book.id !== parseInt(id));
     res.sendStatus(204);
   });
   
