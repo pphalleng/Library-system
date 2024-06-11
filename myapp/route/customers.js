@@ -57,7 +57,7 @@ router.get('/customers/:id', (req, res) => {
 // Create a new Customer
 router.post('/create-customers', [check('date_of_birth').isDate()], (req, res) => {
     const errors = validationResult(req);
-    const { first_name, last_name, age,  date_of_birth, nid_passport_number, current_address} = req.body;
+    const { membership_card_id, first_name, last_name, age,  date_of_birth, nid_passport_number, current_address} = req.body;
     // Simple validation
     if (!first_name || !last_name || !age || !date_of_birth || !nid_passport_number || !current_address) {
       return res.status(400).json({ message: 'All fields are required, please check again to input them.' });
@@ -67,7 +67,7 @@ router.post('/create-customers', [check('date_of_birth').isDate()], (req, res) =
         return res.status(422).json({errors: errors.array()})
     }
   
-    const newCustomer = { id: customers.length + 1, first_name, last_name, age, date_of_birth, nid_passport_number, current_address};
+    const newCustomer = { id: customers.length + 1, membership_card_id, first_name, last_name, age, date_of_birth, nid_passport_number, current_address};
     customers.push(newCustomer);
   
     res.status(201).json(newCustomer);
@@ -77,7 +77,7 @@ router.post('/create-customers', [check('date_of_birth').isDate()], (req, res) =
 router.put('/update-customers/:id', [check('date_of_birth').isDate()], (req, res) => {
     const errors = validationResult(req);
     const { id } = req.params;
-    const { first_name, last_name, age,  date_of_birth, nid_passport_number, current_address} = req.body;
+    const { membership_card_id, first_name, last_name, age,  date_of_birth, nid_passport_number, current_address} = req.body;
     // Simple validation
     if (!first_name || !last_name || !age || !date_of_birth || !nid_passport_number || !current_address) {
       return res.status(400).json({ message: 'All fields are required, please check again to input them.' });
@@ -93,6 +93,7 @@ router.put('/update-customers/:id', [check('date_of_birth').isDate()], (req, res
       return res.status(404).json({ message: 'User not found' });
     }
   
+    customer.membership_card_id = membership_card_id;
     customer.first_name = first_name;
     customer.last_name = last_name;
     customer.age = age;
