@@ -1,22 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-let membershipCards = [
-    { 
-        id: 1, 
-        cardholder_name: 'John',
-        issued_date: '2024-02-01',
-        expired_date: '2025-01-31',
-        type: 'Golden VIP',
-    },
-    { 
-        id: 2, 
-        cardholder_name: 'Jane',
-        issued_date: '2023-11-06',
-        expired_date: '2024-10-05',
-        type: 'Silver VIP',
-    },
-];
+const membershipCards = require("../Models/DataMemberShipCard.json");
 
 // Get all membershipCard
 router.get('/membershipCards', (req, res) => {
@@ -26,7 +11,7 @@ router.get('/membershipCards', (req, res) => {
 //Get membershipCard by id
 router.get('/membershipCards/:id', (req, res) => {
     const { id } = req.params;
-    const membershipCard = membershipCards.find((membershipCard) => membershipCard.id === parseInt(id));
+    const membershipCard = membershipCards.find((membershipCard) => membershipCard.id === id);
 
     if (!membershipCard) {
         return res.status(404).json({ message: 'The card not found' });
@@ -78,7 +63,7 @@ router.put('/membershipCards/:id', (req, res) => {
 // Delete a user by ID
 router.delete('/membershipCards/:id', (req, res) => {
     const { id } = req.params;
-    membershipCards = membershipCards.filter((membershipCard) => membershipCard.id !== parseInt(id));
+    // membershipCards = membershipCards.filter((membershipCard) => membershipCard.id !== parseInt(id));
     res.sendStatus(204);
   });
   

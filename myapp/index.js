@@ -15,6 +15,7 @@ const lirarainRoute = require("./route/librarain");
 const transactionRoute = require("./route/transactions");
 const transactionLineRoute = require("./route/transaction_lines");
 const bookRoute = require("./route/books");
+const membershipCardRoute = require("./route/membershipCards");
 
 // Use the customers routes
 app.use('/api', customerRoute);
@@ -22,6 +23,7 @@ app.use('/api', lirarainRoute);
 app.use('/api', transactionRoute);
 app.use('/api', transactionLineRoute);
 app.use('/api', bookRoute);
+app.use('/api', membershipCardRoute);
 
 app.get("/test",function(request,response){
     response.send("Hello everyone, Here is NodeJS project.")
