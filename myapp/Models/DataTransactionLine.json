@@ -1,0 +1,274 @@
+[
+    {
+     "id": "1",
+     "transaction_id": 11,
+     "book_id": 13,
+     "unit_price": 10.66,
+     "qty_unit": 1,
+     "total_price": 10.66
+    },
+    {
+     "id": "2",
+     "transaction_id": 11,
+     "book_id": 25,
+     "unit_price": 20,
+     "qty_unit": 1,
+     "total_price": 20
+    },
+    {
+     "id": "3",
+     "transaction_id": 11,
+     "book_id": 31,
+     "unit_price": 30,
+     "qty_unit": 1,
+     "total_price": 30
+    },
+    {
+     "id": "4",
+     "transaction_id": 5,
+     "book_id": 3,
+     "unit_price": 54,
+     "qty_unit": 2,
+     "total_price": 108
+    },
+    {
+     "id": "5",
+     "transaction_id": 8,
+     "book_id": 42,
+     "unit_price": 42,
+     "qty_unit": 1,
+     "total_price": 42
+    },
+    {
+     "id": "6",
+     "transaction_id": 19,
+     "book_id": 18,
+     "unit_price": 10,
+     "qty_unit": 3,
+     "total_price": 30
+    },
+    {
+     "id": "7",
+     "transaction_id": 4,
+     "book_id": 4,
+     "unit_price": 100,
+     "qty_unit": 1,
+     "total_price": 100
+    },
+    {
+     "id": "8",
+     "transaction_id": 13,
+     "book_id": 18,
+     "unit_price": 10,
+     "qty_unit": 1,
+     "total_price": 10
+    },
+    {
+     "id": "9",
+     "transaction_id": 6,
+     "book_id": 26,
+     "unit_price": 17,
+     "qty_unit": 2,
+     "total_price": 34
+    },
+    {
+     "id": "10",
+     "transaction_id": 19,
+     "book_id": 10,
+     "unit_price": 7,
+     "qty_unit": 1,
+     "total_price": 7
+    },
+    {
+     "id": "11",
+     "transaction_id": 2,
+     "book_id": 1,
+     "unit_price": 12.5,
+     "qty_unit": 1,
+     "total_price": 12.5
+    },
+    {
+     "id": "12",
+     "transaction_id": 20,
+     "book_id": 48,
+     "unit_price": 9,
+     "qty_unit": 6,
+     "total_price": 54
+    },
+    {
+     "id": "13",
+     "transaction_id": 2,
+     "book_id": 46,
+     "unit_price": 12.5,
+     "qty_unit": 1,
+     "total_price": 12.5
+    },
+    {
+     "id": "14",
+     "transaction_id": 19,
+     "book_id": 16,
+     "unit_price": 8,
+     "qty_unit": 1,
+     "total_price": 8
+    },
+    {
+     "id": "15",
+     "transaction_id": 4,
+     "book_id": 36,
+     "unit_price": 36,
+     "qty_unit": 1,
+     "total_price": 36
+    },
+    {
+     "id": "16",
+     "transaction_id": 2,
+     "book_id": 42,
+     "unit_price": 25,
+     "qty_unit": 1,
+     "total_price": 25
+    },
+    {
+     "id": "17",
+     "transaction_id": 20,
+     "book_id": 11,
+     "unit_price": 27,
+     "qty_unit": 2,
+     "total_price": 54
+    },
+    {
+     "id": "18",
+     "transaction_id": 10,
+     "book_id": 49,
+     "unit_price": 25,
+     "qty_unit": 2,
+     "total_price": 50
+    },
+    {
+     "id": "19",
+     "transaction_id": 6,
+     "book_id": 10,
+     "unit_price": 7,
+     "qty_unit": 1,
+     "total_price": 7
+    },
+    {
+     "id": "20",
+     "transaction_id": 18,
+     "book_id": 28,
+     "unit_price": 31.1,
+     "qty_unit": 1,
+     "total_price": 31.1
+    },
+    {
+     "id": "21",
+     "transaction_id": 1,
+     "book_id": 33,
+     "unit_price": 21.5,
+     "qty_unit": 4,
+     "total_price": 86
+    },
+    {
+     "id": "22",
+     "transaction_id": 7,
+     "book_id": 14,
+     "unit_price": 22,
+     "qty_unit": 2,
+     "total_price": 44
+    },
+    {
+     "id": "23",
+     "transaction_id": 18,
+     "book_id": 2,
+     "unit_price": 60,
+     "qty_unit": 1,
+     "total_price": 60
+    },
+    {
+     "id": "24",
+     "transaction_id": 6,
+     "book_id": 37,
+     "unit_price": 17,
+     "qty_unit": 3,
+     "total_price": 51
+    },
+    {
+     "id": "25",
+     "transaction_id": 3,
+     "book_id": 46,
+     "unit_price": 12.5,
+     "qty_unit": 1,
+     "total_price": 12.5
+    },
+    {
+     "id": "26",
+     "transaction_id": 10,
+     "book_id": 24,
+     "unit_price": 50,
+     "qty_unit": 1,
+     "total_price": 50
+    },
+    {
+     "id": "27",
+     "transaction_id": 10,
+     "book_id": 29,
+     "unit_price": 22,
+     "qty_unit": 1,
+     "total_price": 22
+    },
+    {
+     "id": "28",
+     "transaction_id": 18,
+     "book_id": 15,
+     "unit_price": 30.45,
+     "qty_unit": 2,
+     "total_price": 60.9
+    },
+    {
+     "id": "29",
+     "transaction_id": 19,
+     "book_id": 48,
+     "unit_price": 9,
+     "qty_unit": 1,
+     "total_price": 9
+    },
+    {
+     "id": "30",
+     "transaction_id": 19,
+     "book_id": 19,
+     "unit_price": 5,
+     "qty_unit": 2,
+     "total_price": 10
+    },
+    {
+     "id": "31",
+     "transaction_id": 10,
+     "book_id": 26,
+     "unit_price": 17,
+     "qty_unit": 2,
+     "total_price": 34
+    },
+    {
+     "id": "32",
+     "transaction_id": 14,
+     "book_id": 45,
+     "unit_price": 12.2,
+     "qty_unit": 10,
+     "total_price": 122
+    },
+    {
+     "id": "33",
+     "transaction_id": 20,
+     "book_id": 42,
+     "unit_price": 42,
+     "qty_unit": 1,
+     "total_price": 42
+    },
+    {
+     "id": "34",
+     "transaction_id": 2,
+     "book_id": 36,
+     "unit_price": 36,
+     "qty_unit": 1,
+     "total_price": 36
+    }
+   ]

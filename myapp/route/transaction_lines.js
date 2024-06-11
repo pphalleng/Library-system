@@ -1,24 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-let transaction_lines = [
-    {
-        id: 1, 
-        transaction_id: '1',
-        book_id: '1',
-        unit_price: '20$',
-        qty_unit: '1',
-        total_price: '20$',
-    },
-    { 
-        id: 2,
-        transaction_id: '1',
-        book_id: '2',
-        unit_price: '15$',
-        qty_unit: '1',
-        total_price: '15$',
-    },
-];
+const transaction_lines = require("../Models/DataTransactionLine.json");
 
 // Get all transaction_line
 router.get('/transaction_lines', (req, res) => {
@@ -28,7 +11,7 @@ router.get('/transaction_lines', (req, res) => {
 //Get transaction_line by id
 router.get('/transaction_lines/:id', (req, res) => {
     const { id } = req.params;
-    const transaction_line = transaction_lines.find((transaction_line) => transaction_line.id === parseInt(id));
+    const transaction_line = transaction_lines.find((transaction_line) => transaction_line.id === id);
 
     if (!transaction_line) {
         return res.status(404).json({ message: 'The transaction_line not found' });
