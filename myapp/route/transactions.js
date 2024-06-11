@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const transactions = require("../dummyData/DataTransaction.json");
+const transactions = require("../Models/DataTransaction.json");
 
 // Get all Transaction
 router.get('/transactions', (req, res) => {

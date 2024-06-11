@@ -2,7 +2,7 @@ const express = require('express');
 const status = require('statuses');
 const router  = express.Router();
 
-const books = require("../dummyData/DataBook.json");
+const books = require("../Models/DataBook.json");
 
 // Get all Books
 router.get('/books', (req, res) => {

@@ -1,0 +1,56 @@
+[
+    {
+     "id": "1",
+     "first_name": "Sok",
+     "last_name": "Chantha",
+     "age": 34,
+     "date_of_birth": "1990-04-03",
+     "nId_passport_number": 9844126577,
+     "current_address": "Phnom Penh"
+    },
+    {
+     "id": "2",
+     "first_name": "Tim",
+     "last_name": "Dameon",
+     "age": 19,
+     "date_of_birth": "2005-12-20",
+     "nId_passport_number": 7252711939,
+     "current_address": "Phnom Penh"
+    },
+    {
+     "id": "3",
+     "first_name": "Jade",
+     "last_name": "Piseth",
+     "age": 21,
+     "date_of_birth": "2003-12-28",
+     "nId_passport_number": 9464335395,
+     "current_address": "Battambang"
+    },
+    {
+     "id": "4",
+     "first_name": "Prak",
+     "last_name": "Tommy",
+     "age": 29,
+     "date_of_birth": "1995-12-08",
+     "nId_passport_number": 1086701638,
+     "current_address": "Siem Reap"
+    },
+    {
+     "id": "5",
+     "first_name": "Muth",
+     "last_name": "Sambath",
+     "age": 22,
+     "date_of_birth": "2002-12-22",
+     "nId_passport_number": 8052546685,
+     "current_address": "Kampong Cham"
+    },
+    {
+     "id": "6",
+     "first_name": "Thivea",
+     "last_name": "Thida",
+     "age": 21,
+     "date_of_birth": "2003-08-24",
+     "nId_passport_number": 9480162725,
+     "current_address": "Siem Reap"
+    }
+]

@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const {check, validationResult} = require('express-validator');
 
-const customers = require("../dummyData/DataCustomer.json")
+const customers = require("../Models/DataCustomer.json")
 
 // // Get all Customer
 // router.get('/all/customers', (req, res) => {
