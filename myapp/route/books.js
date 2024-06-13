@@ -9,7 +9,7 @@ const bookController = require("../Controller/BookController");
 router.get('/books', paginatedResults(books), bookController.getAllBooks);
 
 // advanced search customer
-router.get('/customer', bookController.advancedSearch);
+router.get('/book', bookController.advancedSearch);
 
 //Get Books by id
 router.get('/books/:id', bookController.getBookById);

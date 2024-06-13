@@ -8,7 +8,7 @@ const librarainController = require("../Controller/LirearainController");
 router.get('/librarains', paginatedResults(librarains), librarainController.getAllLirearains);
 
 // advanced search customer
-router.get('/customer', librarainController.advancedSearch);
+router.get('/librarain', librarainController.advancedSearch);
 
 //Get librarain by id
 router.get('/librarains/:id', librarainController.getAllLirearainById);

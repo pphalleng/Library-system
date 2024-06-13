@@ -2,69 +2,52 @@ const express = require('express');
 const router  = express.Router();
 
 const membershipCards = require("../Models/DataMemberShipCard.json");
+const membershipCardController = require("../Controller/MemberShipCardController");
 
 // Get all membershipCard
-router.get('/membershipCards', (req, res) => {
-    res.json(membershipCards);
-});
+router.get('/membershipCards', paginatedResults(membershipCards), membershipCardController.createNewMemberShipCard);
+
+router.get('/membershipCard', membershipCardController.advancedSearch);
 
 //Get membershipCard by id
-router.get('/membershipCards/:id', (req, res) => {
-    const { id } = req.params;
-    const membershipCard = membershipCards.find((membershipCard) => membershipCard.id === id);
-
-    if (!membershipCard) {
-        return res.status(404).json({ message: 'The card not found' });
-    }
-    
-    res.json(membershipCard);
-});
-
+router.get('/membershipCards/:id', membershipCardController.getMenberShipById);
 
 // Create a new membershipCard
-router.post('/membershipCards', (req, res) => {
-    const { cardholder_name, issued_date, expired_date, type} = req.body;
-  
-    // Simple validation
-    if (!cardholder_name || !issued_date || !expired_date || !type) {
-      return res.status(400).json({ message: 'Cardholder name is required' });
-    }
-  
-    const newmembershipCard = { id: membershipCards.length + 1, cardholder_name, issued_date, expired_date, type};
-    membershipCards.push(newmembershipCard);
-  
-    res.status(201).json(newmembershipCard);
-});
+router.post('/membershipCards', membershipCardController.createNewMemberShipCard);
 
 // Update an existing membershipCard by ID
-router.put('/membershipCards/:id', (req, res) => {
-    const { id } = req.params;
-    const { cardholder_name, issued_date, expired_date, type } = req.body;
-  
-    // Simple validation
-    if (!cardholder_name || !issued_date || !expired_date || !type) {
-      return res.status(400).json({ message: 'Cardholder name is required' });
-    }
-  
-    const membershipCard = membershipCards.find((membershipCard) => membershipCard.id === parseInt(id));
-  
-    if (!membershipCard) {
-      return res.status(404).json({ message: 'The card not found' });
-    }
-  
-    membershipCard.cardholder_name = cardholder_name;
-    membershipCard.issued_date = issued_date;
-    membershipCard.expired_date = expired_date;
-    membershipCard.type = type;
-  
-    res.json(membershipCard);
-});
+router.put('/membershipCards/:id', membershipCardController.updateMenberShipCard);
 
 // Delete a user by ID
-router.delete('/membershipCards/:id', (req, res) => {
-    const { id } = req.params;
-    // membershipCards = membershipCards.filter((membershipCard) => membershipCard.id !== parseInt(id));
-    res.sendStatus(204);
-  });
+router.delete('/membershipCards/:id', membershipCardController.deleteMemberShipCard);
+
+// function get pagination
+function paginatedResults(model) {
+  return (req, res, next) => {
+      const page = parseInt(req.query.page);
+      const limit = parseInt(req.query.limit);
   
-  module.exports = router;
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit;
+  
+      const results = {}
+      if(endIndex < model.length){
+          results.next = {
+              page: page + 1,
+              limit: limit
+          }
+      }
+      if(startIndex > 0){
+          results.previous = {
+              page: page - 1,
+              limit: limit
+          }
+      }
+
+      results.results = model.slice(startIndex, endIndex);
+      res.paginatedResults = results;
+      next();
+  }
+}
+  
+module.exports = router;
