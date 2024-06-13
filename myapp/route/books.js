@@ -1,72 +1,55 @@
 const express = require('express');
-const status = require('statuses');
 const router  = express.Router();
 
 const books = require("../Models/DataBook.json");
+const bookController = require("../Controller/BookController");
+
 
 // Get all Books
-router.get('/books', (req, res) => {
-    res.json(books);
-});
+router.get('/books', paginatedResults(books), bookController.getAllBooks);
+
+// advanced search customer
+router.get('/customer', bookController.advancedSearch);
 
 //Get Books by id
-router.get('/books/:id', (req, res) => {
-    const { id } = req.params;
-    const book = books.find((book) => book.id === id);
-
-    if (!book) {
-        return res.status(404).json({ message: 'Item not found' });
-    }
-    
-    res.json(book);
-});
-
+router.get('/books/:id', bookController.getBookById);
 
 // Create a new Book
-router.post('/books', (req, res) => {
-    const { cover_name, published_year, category_type, barcode, status} = req.body;
-  
-    // Simple validation
-    if (!cover_name || !published_year || !category_type || !barcode || !status) {
-      return res.status(400).json({ message: 'Book title are required' });
-    }
-  
-    const newBook = { id: books.length + 1, cover_name, published_year, category_type, barcode, status};
-    books.push(newBook);
-  
-    res.status(201).json(newBook);
-});
+router.post('/books', bookController.createNewBook);
 
 // Update an existing Book by ID
-router.put('/books/:id', (req, res) => {
-    const { id } = req.params;
-    const { cover_name, published_year, category_type, barcode, status} = req.body;
-  
-    // Simple validation
-    if (!cover_name || !published_year || !category_type || !barcode || !status) {
-        return res.status(400).json({ message: 'Book title are required' });
-        }
-        
-        const book = books.find((book) => book.id === id);
-  
-    if (!book) {
-      return res.status(404).json({ message: 'Item not found' });
-    }
-  
-    book.cover_name = cover_name;
-    book.published_year = published_year;
-    book.category_type = category_type;
-    book.barcode = barcode;
-    book.status = status;
-  
-    res.json(book);
-});
+router.put('/books/:id', bookController.updateBook);
 
 // Delete a user by ID
-router.delete('/books/:id', (req, res) => {
-    const { id } = req.params;
-    // books = books.filter((book) => book.id !== parseInt(id));
-    res.sendStatus(204);
-  });
+router.delete('/books/:id', bookController.deleteBook);
+
+// function get pagination
+function paginatedResults(model) {
+  return (req, res, next) => {
+      const page = parseInt(req.query.page);
+      const limit = parseInt(req.query.limit);
   
-  module.exports = router;
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit;
+  
+      const results = {}
+      if(endIndex < model.length){
+          results.next = {
+              page: page + 1,
+              limit: limit
+          }
+      }
+      if(startIndex > 0){
+          results.previous = {
+              page: page - 1,
+              limit: limit
+          }
+      }
+
+      results.results = model.slice(startIndex, endIndex);
+      res.paginatedResults = results;
+      next();
+  }
+}
+  
+module.exports = router;
