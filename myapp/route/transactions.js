@@ -2,38 +2,47 @@ const express = require('express');
 const router  = express.Router();
 
 const transactions = require("../Models/DataTransaction.json");
+const TransactionController = require("../Controller/TransactionController");
+
 
 // Get all Transaction
-router.get('/transactions', (req, res) => {
-    res.json(transactions);
-});
+router.get('/transactions', paginatedResults(transactions), TransactionController.getAllTransactions);
+
+router.get('/transaction', TransactionController.advancedSearch);
 
 //Get transaction by id
-router.get('/transactions/:id', (req, res) => {
-    const { id } = req.params;
-    const transaction = transactions.find((transaction) => transaction.id === id);
-
-    if (!transaction) {
-        return res.status(404).json({ message: 'The transaction NO not found' });
-    }
-    
-    res.json(transaction);
-});
-
+router.get('/transactions/:id', TransactionController.getTransactionById);
 
 // Create a new transaction
-router.post('/transactions', (req, res) => {
-    const { customer_id, librarian_id, total_amount, status, created_on, created_by, last_updated_on, last_updated_by} = req.body;
-  
-    // Simple validation
-    if (!customer_id || !librarian_id || !total_amount || !status || !created_on || !created_by || !last_updated_on || !last_updated_by) {
-      return res.status(400).json({ message: 'User ID is required' });
-    }
-  
-    const newTransaction = { id: transactions.length + 1, customer_id, librarian_id, total_amount, status, created_on, created_by, last_updated_on, last_updated_by};
-    transactions.push(newTransaction);
-  
-    res.status(201).json(newTransaction);
-});
+router.post('/transactions', TransactionController.createTransaction);
 
-  module.exports = router;
+// function get pagination
+function paginatedResults(model) {
+    return (req, res, next) => {
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+    
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+    
+        const results = {}
+        if(endIndex < model.length){
+            results.next = {
+                page: page + 1,
+                limit: limit
+            }
+        }
+        if(startIndex > 0){
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            }
+        }
+  
+        results.results = model.slice(startIndex, endIndex);
+        res.paginatedResults = results;
+        next();
+    }
+}
+
+module.exports = router;
