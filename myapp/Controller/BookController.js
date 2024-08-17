@@ -1,10 +1,37 @@
-const books = require("../Models/DataBook.json");
+// const books = require("../Models/DataBook.json");
+const { Result } = require("express-validator");
+const {PrismaClient} = require("@prisma/client");
+const prisma = new PrismaClient();
 
-const getAllBooks = (req, res) => {
+const getAllBooks = async (req, res) => {
+    const querybook = await prisma.books.findMany();
+
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+    
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const results = {}
+        
     if(req.query.page || req.query.limit){
-        res.json(res.paginatedResults);
+        if(endIndex < querybook.length){
+            results.next = {
+                page: page + 1,
+                limit: limit
+            }
+        }
+        if(startIndex > 0){
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            }
+        }
+  
+        results.results = querybook.slice(startIndex, endIndex);
+        res.paginatedResults = results;
+        res.json(results);
     }else{
-        res.json(books);
+        res.json(querybook);
     }
 }
 
@@ -21,33 +48,49 @@ const advancedSearch = (req, res, next) => {
   res.send(filteredUsers); 
 }
 
-const createNewBook = (req, res) => {
+const createNewBook = async (req, res) => {
     const { cover_name, published_year, category_type, barcode, status} = req.body;
   
     // Simple validation
-    if (!cover_name || !published_year || !category_type || !barcode || !status) {
-      return res.status(400).json({ message: 'Book title are required' });
-    }
+    // if (!cover_name || !published_year || !category_type || !barcode || !status) {
+    //   return res.status(400).json({ message: 'Bookt itle are required' });
+    // }
   
-    const newBook = { id: books.length + 1, cover_name, published_year, category_type, barcode, status};
-    books.push(newBook);
-  
-    res.status(201).json(newBook);
+    const newBook = {cover_name, published_year, category_type, barcode, status};
+    
+    const createBook = await prisma.books.create({
+        data: newBook
+    })
+    
+    res.status(201).send({
+        message: 'Successfully created',
+        result: createBook
+    });
 }
 
-const getBookById = (req, res) => {
-    const { id } = req.params;
-    const book = books.find((book) => book.id === id);
+const getBookById = async (req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
+    
+    const book = await prisma.books.findUnique({
+        where: {
+            id: id,
+        },
+    });
 
     if (!book) {
         return res.status(404).json({ message: 'Item not found' });
     }
     
-    res.json(book);
+    res.status(201).send({
+        message: 'Librarain already exists',
+        result: book
+    });
 }
 
-const updateBook = (req, res) => {
-    const { id } = req.params;
+const updateBook = async (req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
     const { cover_name, published_year, category_type, barcode, status} = req.body;
   
     // Simple validation
@@ -55,25 +98,42 @@ const updateBook = (req, res) => {
         return res.status(400).json({ message: 'Book title are required' });
         }
         
-        const book = books.find((book) => book.id === id);
+    const book = await prisma.books.update({
+        where: {
+            id: id,
+        },
+        data: {
+            cover_name : cover_name,
+            published_year : published_year,
+            category_type : category_type,
+            barcode : barcode,
+            status : status,
+        },
+    });
   
     if (!book) {
       return res.status(404).json({ message: 'Item not found' });
     }
   
-    book.cover_name = cover_name;
-    book.published_year = published_year;
-    book.category_type = category_type;
-    book.barcode = barcode;
-    book.status = status;
-  
-    res.json(book);
+    res.status(201).send({
+        message: 'Update Success',
+        results: book
+    });
 }
 
-const deleteBook = (req, res) => {
-    const { id } = req.params;
-    // books = books.filter((book) => book.id !== parseInt(id));
-    res.sendStatus(204);
+const deleteBook = async (req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
+    const book = await prisma.books.delete({
+        where: {
+            id: id,
+        },
+    });
+    res.status(201).send(
+        {
+            code: 200,
+            message: 'Delete Success',
+        });
 }
 
 module.exports = {

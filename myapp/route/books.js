@@ -6,7 +6,7 @@ const bookController = require("../Controller/BookController");
 
 
 // Get all Books
-router.get('/books', paginatedResults(books), bookController.getAllBooks);
+router.get('/books', bookController.getAllBooks);
 
 // advanced search customer
 router.get('/book', bookController.advancedSearch);

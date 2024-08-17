@@ -6,7 +6,7 @@ const transactionLineController = require("../Controller/TransactionLineControll
 
 
 // Get all transaction_line
-router.get('/transaction_lines', paginatedResults(transaction_lines), transactionLineController.getAllTransactionLines);
+router.get('/transaction_lines', transactionLineController.getAllTransactionLines);
 
 router.get('/transaction_line', transactionLineController.advancedSearch);
 

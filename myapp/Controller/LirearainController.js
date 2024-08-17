@@ -1,10 +1,37 @@
-const librarains = require("../Models/DataLirearain.json");
+const { Result } = require("express-validator");
+const {PrismaClient} = require("@prisma/client");
+const prisma = new PrismaClient();
+const bcrypt = require("bcrypt");
 
-const getAllLirearains = (req, res) => {
+const getAllLirearains = async(req, res) => {
+    const queryLibraries = await prisma.librarians.findMany();
+
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+    
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const results = {}
+        
     if(req.query.page || req.query.limit){
-        res.json(res.paginatedResults);
+        if(endIndex < queryLibraries.length){
+            results.next = {
+                page: page + 1,
+                limit: limit
+            }
+        }
+        if(startIndex > 0){
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            }
+        }
+  
+        results.results = queryLibraries.slice(startIndex, endIndex);
+        res.paginatedResults = results;
+        res.json(results);
     }else{
-        res.json(librarains);
+        res.json(queryLibraries);
     }
 }
 
@@ -21,62 +48,100 @@ const advancedSearch = (req, res, next) => {
   res.send(filteredUsers); 
 }
 
-const createNewLirarain = (req, res) => {
-    const { first_name, last_name, age,  date_of_birth, nId_passport_number, current_address} = req.body;
+const createNewLirarain = async (req, res) => {
+    
+    const { first_name, last_name, age,  date_of_birth, nid, current_address, email, password} = req.body;
     
     // Simple validation
-    if (!first_name || !last_name || !age || !date_of_birth || !nId_passport_number || !current_address) {
+    if (!first_name || !last_name || !age || !date_of_birth || !nid || !current_address || !email || !password) {
         return res.status(400).json({ message: 'Name and age are required' });
         }
         
-    const newLirearain = { id: librarains.length + 1, first_name, last_name, age, date_of_birth, nId_passport_number, current_address};
+    const salt = bcrypt.genSaltSync(Math.random() * 10);
+    const newLirearain = { first_name, last_name, age, date_of_birth: (new Date(date_of_birth)).toISOString(), nid, current_address, email, password: bcrypt.hashSync(password, salt),};
     console.log(newLirearain);
-    librarains.push(newLirearain);
+    
+    const createLibrain = await prisma.librarians.create({
+        data: newLirearain
+    })
         
-    res.status(201).json(newLirearain);
+    res.status(201).send({
+        message: 'Successfully created',
+        result: createLibrain
+    });
 }
 
-const getAllLirearainById = (req, res) => {
-    const { id } = req.params;
-    const lirarain = librarains.find((lirarain) => lirarain.id === id);
+const getAllLirearainById = async(req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
+    
+    const lirarain = await prisma.librarians.findUnique({
+        where: {
+            id: id,
+        },
+    });
 
     if (!lirarain) {
         return res.status(404).json({ message: 'librarain not found' });
-    }
+    }   
     
-    res.json(lirarain);
+    res.status(201).send({
+        message: 'Librarain already exists',
+        result: lirarain
+    });
 }
 
-const updateLirearain = (req, res) => {
-    const { id } = req.params;
-    const { first_name, last_name, age,  date_of_birth, nId_passport_number, current_address} = req.body;
+const updateLirearain = async(req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
+    const { first_name, last_name, age,  date_of_birth, nid, current_address, email} = req.body;
   
     // Simple validation
-    if (!first_name || !last_name || !age || !date_of_birth || !nId_passport_number || !current_address) {
+    if (!first_name || !last_name || !age || !date_of_birth || !nid || !current_address || !email) {
       return res.status(400).json({ message: 'Name and age are required' });
     }
   
-    const lirarain = librarains.find((lirarain) => lirarain.id === id);
+    const lirarain = await prisma.librarians.update({
+        where: {
+            id: id,
+        },
+        data: {
+            first_name : first_name,
+            last_name : last_name,
+            age : age,
+            date_of_birth : (new Date(date_of_birth)).toISOString(),
+            nid : nid,
+            current_address : current_address,
+            email : email,
+
+        },
+    });
+    
   
     if (!lirarain) {
       return res.status(404).json({ message: 'User not found' });
     }
   
-    lirarain.first_name = first_name;
-    lirarain.last_name = last_name;
-    lirarain.age = age;
-    lirarain.date_of_birth = date_of_birth;
-    lirarain.nId_passport_number = nId_passport_number;
-    lirarain.current_address = current_address;
-  
-    res.json(lirarain);
+    res.status(201).send({
+        message: 'Update Success',
+        results: lirarain
+    });
 
 }
 
-const deleteLirarain = (req, res) => {
-    const { id } = req.params;
-    // librarains = librarains.filter((lirarain) => lirarain.id !== parseInt(id));
-    res.sendStatus(204);
+const deleteLirarain = async(req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
+    const librarain = await prisma.librarians.delete({
+        where: {
+            id: id,
+        },
+    });
+    res.status(201).send(
+        {
+            code: 200,
+            message: 'Delete Success',
+        });
 }
 
 module.exports = {

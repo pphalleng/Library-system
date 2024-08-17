@@ -5,7 +5,10 @@ const membershipCards = require("../Models/DataMemberShipCard.json");
 const membershipCardController = require("../Controller/MemberShipCardController");
 
 // Get all membershipCard
-router.get('/membershipCards', paginatedResults(membershipCards), membershipCardController.getAllMenberShipCards);
+router.get('/membershipCards', membershipCardController.getAllMenberShipCards);
+
+// Get all membershipCard
+router.get('/membershipCards/list', membershipCardController.getAllMenberShipCardsList);
 
 router.get('/membershipCard', membershipCardController.advancedSearch);
 

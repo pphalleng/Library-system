@@ -1,11 +1,50 @@
-const membershipCards = require("../Models/DataMemberShipCard.json");
+const { Result } = require("express-validator");
+const {PrismaClient} = require("@prisma/client");
+const prisma = new PrismaClient();
 
-const getAllMenberShipCards = (req, res) => {
-      if(req.query.page || req.query.limit){
-        res.json(res.paginatedResults);
-      }else{
-          res.json(membershipCards);
-      }
+const getAllMenberShipCards = async (req, res) => {
+    const querymembershipCard = await prisma.membershipCards.findMany({
+        include: {
+            customer: true
+        }
+    });
+
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const results = {}
+    
+  if(req.query.page || req.query.limit){
+    if(endIndex < querymembershipCard.length){
+        results.next = {
+            page: page + 1,
+            limit: limit
+        }
+    }
+    if(startIndex > 0){
+        results.previous = {
+            page: page - 1,
+            limit: limit
+        }
+    }
+
+    results.results = querymembershipCard.slice(startIndex, endIndex);
+    res.paginatedResults = results;
+    res.json(results);
+  }else{
+    res.json(querymembershipCard);
+  }
+}
+
+const getAllMenberShipCardsList = async (req, res) => {
+    const querymembershipCard = await prisma.membershipCards.findMany({
+        include: {
+            customer: true
+        }
+    });
+    res.json(querymembershipCard);
 }
 
 const advancedSearch = (req, res, next) => {
@@ -21,7 +60,7 @@ const advancedSearch = (req, res, next) => {
   res.send(filteredUsers); 
 }
 
-const createNewMemberShipCard = (req, res) => {
+const createNewMemberShipCard = async (req, res) => {
     const { cardholder_name, issued_date, expired_date, type} = req.body;
   
     // Simple validation
@@ -29,25 +68,40 @@ const createNewMemberShipCard = (req, res) => {
       return res.status(400).json({ message: 'Cardholder name is required' });
     }
   
-    const newmembershipCard = { id: membershipCards.length + 1, cardholder_name, issued_date, expired_date, type};
-    membershipCards.push(newmembershipCard);
-  
-    res.status(201).json(newmembershipCard);
+    const newmembershipCard = { cardholder_name, issued_date:(new Date(issued_date)).toISOString(), expired_date: (new Date(expired_date)).toISOString(), type};
+    const createmembershipCard = await prisma.membershipCards.create({
+        data: newmembershipCard
+    })
+    
+    res.status(201).send({
+        message: 'Successfully created',
+        result: createmembershipCard
+    });
 }
 
-const getMenberShipById = (req, res) => {
-    const { id } = req.params;
-    const membershipCard = membershipCards.find((membershipCard) => membershipCard.id === id);
+const getMenberShipById = async (req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
+    
+    const membershipCard = await prisma.membershipCards.findUnique({
+        where: {
+            id: id,
+        },
+    });
 
     if (!membershipCard) {
-        return res.status(404).json({ message: 'The card not found' });
-    }
+        return res.status(404).json({ message: 'membershipCard not found' });
+    }   
     
-    res.json(membershipCard);
+    res.status(201).send({
+        message: 'membershipCard already exists',
+        result: membershipCard
+    });
 }
 
-const updateMenberShipCard = (req, res) => {
-    const { id } = req.params;
+const updateMenberShipCard = async (req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
     const { cardholder_name, issued_date, expired_date, type } = req.body;
   
     // Simple validation
@@ -55,24 +109,42 @@ const updateMenberShipCard = (req, res) => {
       return res.status(400).json({ message: 'Cardholder name is required' });
     }
   
-    const membershipCard = membershipCards.find((membershipCard) => membershipCard.id === parseInt(id));
-  
+      const membershipCard = await prisma.membershipCards.update({
+        where: {
+            id: id,
+        },
+        data: {
+            cardholder_name : cardholder_name,
+            issued_date : issued_date,
+            expired_date : expired_date,
+            type : type,
+        },
+    });
+    
+
     if (!membershipCard) {
-      return res.status(404).json({ message: 'The card not found' });
+      return res.status(404).json({ message: 'membershipCard not found' });
     }
-  
-    membershipCard.cardholder_name = cardholder_name;
-    membershipCard.issued_date = issued_date;
-    membershipCard.expired_date = expired_date;
-    membershipCard.type = type;
-  
-    res.json(membershipCard);
+
+    res.status(201).send({
+        message: 'Update Success',
+        results: membershipCard
+    });
 }
 
-const deleteMemberShipCard = (req, res) => {
-    const { id } = req.params;
-    // membershipCards = membershipCards.filter((membershipCard) => membershipCard.id !== parseInt(id));
-    res.sendStatus(204);
+const deleteMemberShipCard = async (req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
+    const membershipCard = await prisma.membershipCards.delete({
+        where: {
+            id: id,
+        },
+    });
+    res.status(201).send(
+      {
+          code: 200,
+          message: 'Delete Success',
+    });
 }
 
 module.exports = {
@@ -81,5 +153,7 @@ module.exports = {
     createNewMemberShipCard,
     getMenberShipById,
     updateMenberShipCard,
-    deleteMemberShipCard
+    deleteMemberShipCard,
+    getAllMenberShipCardsList
+    
 }

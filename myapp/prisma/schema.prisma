@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id    Int     @id @default(autoincrement())
+  username String
+  password String?
+}
+
+model Books {
+  id    Int     @id @default(autoincrement())
+  cover_name String
+  published_year String
+  category_type String
+  barcode String
+  status Boolean @default(false)
+  booktransactionLine TransactionLines[]
+}  
+
+model MembershipCards {
+  id    Int     @id @default(autoincrement())
+  cardholder_name String
+  issued_date DateTime
+  expired_date DateTime
+  type String?
+  customer Customers[]
+}
+
+model Librarians {
+  id Int @id @default(autoincrement())
+  first_name String
+  last_name String
+  password String
+  email String @unique
+  age String
+  date_of_birth DateTime
+  nid String
+  current_address String
+  transactionCreator Transactions[] @relation("transactionCreator")
+  transactionUpdater Transactions[] @relation("transactionUpdater")
+}
+
+model Customers {
+  id Int @id @default(autoincrement())
+  first_name String
+  last_name String
+  age String
+  date_of_birth DateTime
+  nid String
+  current_address String
+  membership_card_id Int @unique
+  MembershipCard MembershipCards @relation(fields: [membership_card_id], references: [id]) 
+  transaction Transactions[]
+}
+
+model Transactions {
+  id Int @id @default(autoincrement())
+  total_amount String
+  status String
+  customer_id Int
+  Customer  Customers@relation(fields: [customer_id], references: [id])
+  created_on DateTime
+  created_by Int 
+  createdBy Librarians @relation("transactionCreator", fields: [created_by], references: [id])
+  last_updated_on DateTime
+  last_updated_by Int
+  updatedBy Librarians @relation("transactionUpdater", fields: [last_updated_by], references: [id])
+  transactionLine TransactionLines[]
+}
+
+model TransactionLines {
+  id Int @id @default(autoincrement())
+  book_id Int
+  booktransactionLine Books @relation(fields: [book_id], references: [id])
+  transaction_id Int
+  transactionLine Transactions @relation(fields: [transaction_id], references: [id])
+  unit_price String
+  qty_unit String  
+  total_price Decimal
+}

@@ -6,7 +6,7 @@ const TransactionController = require("../Controller/TransactionController");
 
 
 // Get all Transaction
-router.get('/transactions', paginatedResults(transactions), TransactionController.getAllTransactions);
+router.get('/transactions', TransactionController.getAllTransactions);
 
 router.get('/transaction', TransactionController.advancedSearch);
 

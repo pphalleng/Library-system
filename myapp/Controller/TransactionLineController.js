@@ -1,10 +1,36 @@
-const transaction_lines = require("../Models/DataTransactionLine.json");
+const { Result } = require("express-validator");
+const {PrismaClient} = require("@prisma/client");
+const prisma = new PrismaClient();
 
-const getAllTransactionLines = (req, res) => {
+const getAllTransactionLines = async (req, res) => {
+    const querytransactionLine = await prisma.transactionLines.findMany();
+
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+    
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const results = {}
+        
     if(req.query.page || req.query.limit){
-        res.json(res.paginatedResults);
+        if(endIndex < querytransactionLine.length){
+            results.next = {
+                page: page + 1,
+                limit: limit
+            }
+        }
+        if(startIndex > 0){
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            }
+        }
+  
+        results.results = querytransactionLine.slice(startIndex, endIndex);
+        res.paginatedResults = results;
+        res.json(results);
     }else{
-        res.json(transaction_lines);
+        res.json(querytransactionLine);
     }
 }
 
@@ -21,18 +47,26 @@ const advancedSearch = (req, res, next) => {
   res.send(filteredUsers); 
 }
 
-const createTransactionLineByID = (req, res) => {
-    const { id } = req.params;
-    const transaction_line = transaction_lines.find((transaction_line) => transaction_line.id === id);
+const createTransactionLineByID = async (req, res) => {
+    const { params } = req;
+    const id = parseInt(params.id)
 
-    if (!transaction_line) {
+    const transactionLine = await prisma.transactionLines.findUnique({
+            where: {
+                id: id,
+            },
+        });
+    if (!transactionLine) {
         return res.status(404).json({ message: 'The transaction_line not found' });
     }
     
-    res.json(transaction_line);
+    res.status(201).send({
+        message: 'TransactionLine already exists',
+        result: transactionLine
+    });
 }
 
-const createTransactionLine = (req, res) => {
+const createTransactionLine = async(req, res) => {
     const { transaction_id, book_id, unit_price, qty_unit, total_price} = req.body;
   
     // Simple validation
@@ -40,10 +74,15 @@ const createTransactionLine = (req, res) => {
       return res.status(400).json({ message: 'Transaction ID is required' });
     }
   
-    const newtransaction_line = { id: transaction_lines.length + 1, transaction_id, book_id, unit_price, qty_unit, total_price};
-    transaction_lines.push(newtransaction_line);
+    const newtransaction_line = { transaction_id, book_id, unit_price, qty_unit, total_price};
+    const createtransactionLine = await prisma.transactionLines.create({
+        data: newtransaction_line
+    })
   
-    res.status(201).json(newtransaction_line);
+    res.status(201).send({
+        message: 'TransactionLine created successfully',
+        result: createtransactionLine
+    });
 }
 
 

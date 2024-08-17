@@ -5,7 +5,7 @@ const librarains = require("../Models/DataLirearain.json");
 const librarainController = require("../Controller/LirearainController");
 
 // Get all Librarains
-router.get('/librarains', paginatedResults(librarains), librarainController.getAllLirearains);
+router.get('/librarains/get', librarainController.getAllLirearains);
 
 // advanced search customer
 router.get('/librarain', librarainController.advancedSearch);
@@ -14,7 +14,7 @@ router.get('/librarain', librarainController.advancedSearch);
 router.get('/librarains/:id', librarainController.getAllLirearainById);
 
 // Create a new Customer
-router.post('/librarains', librarainController.createNewLirarain);
+router.post('/librarains/create', librarainController.createNewLirarain);
 
 // Update an existing Customer by ID
 router.put('/librarains/:id', librarainController.updateLirearain);

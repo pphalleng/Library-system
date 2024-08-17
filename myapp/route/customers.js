@@ -7,7 +7,7 @@ const customers = require("../Models/DataCustomer.json")
 
 
 // Get all Customer with pagination
-router.get('/customers', paginatedResults(customers), customerController.listAllCustomer)
+router.get('/customers', customerController.listAllCustomer)
 
 // advanced search customer
 router.get('/customer', customerController.advancedSearch);
